@@ -14,6 +14,10 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# Unity meta and info
+*.meta
+*.info
+
 # Windows shortcuts
 *.lnk
 
