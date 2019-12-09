@@ -45,14 +45,19 @@ public class PlayerController : MonoBehaviour
         //控制角色的重力  
         moveDirection.y -= gravity * Time.deltaTime;
         //控制角色右移（按d键和右键时）  在这里不直接使用0而是用0.01f是因为使用0之后会持续移动，无法静止  
-        if (horizontal > 0.01f)
+        if (horizontal > 0.0f)
         {
             moveDirection.x = horizontal * walkSpeed;
-            // LookRight = true;
+            LookRight = true;
         } //控制角色左移（按a键和左键时）  
-        if (horizontal < 0.01f)
+        else if (horizontal < 0.0f)
         {
             moveDirection.x = horizontal * walkSpeed;
+            LookRight = false;
+        }
+        else
+        {
+            moveDirection.x = 0;
         }
         //弹跳控制  
         if (characterController.isGrounded)
