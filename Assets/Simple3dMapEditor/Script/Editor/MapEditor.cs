@@ -33,6 +33,7 @@ public class MapEditor : EditorWindow
 
     public void Initialize(MapGenerator targetObject)
     {
+        Debug.Log("init");
         _mapGenerator = targetObject;
         
         _isDispalyGrid = _mapGenerator.IsDispalyGrid;
@@ -69,9 +70,9 @@ public class MapEditor : EditorWindow
             if (!Event.current.control)
                 _mapGenerator.ClearSelectNode();
         }
-
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.E)
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.E)// Deaso
         {
+            Debug.Log("drawing..");
             if (!SelectionSpawn())
                 Spawn(_mapGenerator.SpawnNode);
             Event.current.Use();
@@ -317,6 +318,7 @@ public class MapEditor : EditorWindow
     {
         if (GUILayout.Button(new GUIContent("Clear", "MapObject All Clear"), GUILayout.Width(EditorGUIUtility.currentViewWidth / 2)))
         {
+            Debug.Log("gg");
             if (EditorUtility.DisplayDialog("Map Clear", "Remove All Map Object!!!", "Yes", "No"))
             {
                 Component[] components = _mapGenerator.GetComponentsInChildren<Component>();
@@ -632,12 +634,17 @@ public class MapEditor : EditorWindow
 
     void OnFocus()
     {
-        SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
-        SceneView.onSceneGUIDelegate += this.OnSceneGUI;
+        Debug.Log("focusing..");
+        // SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
+        // SceneView.onSceneGUIDelegate += this.OnSceneGUI;
+        SceneView.duringSceneGui -= this.OnSceneGUI;
+        SceneView.duringSceneGui += this.OnSceneGUI;
     }
 
     void OnDestroy()
     {
-        SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
+        Debug.Log("destroying..");
+        // SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
+        SceneView.duringSceneGui -= this.OnSceneGUI;
     }
 }
